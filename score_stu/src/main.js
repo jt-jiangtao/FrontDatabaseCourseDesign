@@ -4,7 +4,13 @@ import router from './router'
 import './assets/css/global.css'
 import axios from 'axios'
 import './plugins/element.js'
+import qs from 'qs'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+// Vue.prototype.axios = axios.create({
+//   headers: {'content-type': 'application/x-www-form-urlencoded'}
+// });
+Vue.prototype.qs = qs;
 Vue.prototype.$http = axios
 //配置请求根路径
 axios.defaults.baseURL = 'https://api.jiangtao.website/'

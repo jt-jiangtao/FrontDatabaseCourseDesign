@@ -2234,14 +2234,14 @@ export default {
     login() {
       this.$refs.loginFromRef.validate(async (valid) => {
         if (!valid) return;
-        const { data: res } = await this.$http.post("api/login", {
-          username: this.loginFrom.username,
-          password: this.loginFrom.password,
-        });
-        // if (res.meta.status != 200) return this.$message.error("登陆失败");
-        // this.$message.success("登陆成功");
-        // window.sessionStorage.setItem("token", res.data.token);
-        // this.$router.push("/home");
+        const { data: res } = await this.$http.post(
+          "api/login",
+          this.qs.stringify(this.loginFrom)
+        );
+        if (res.code != 1020) return this.$message.error("登陆失败");
+        this.$message.success("登陆成功");
+        window.sessionStorage.setItem("token", res.data.token);
+        this.$router.push("/home");
       });
     },
   },
