@@ -2210,6 +2210,8 @@
 export default {
   data() {
     return {
+      //用户信息
+      userInfo: {},
       //登陆表单的数据绑定对象
       loginFrom: {
         username: "201921098380",
@@ -2240,7 +2242,10 @@ export default {
         );
         if (res.code != 1020) return this.$message.error("登陆失败");
         this.$message.success("登陆成功");
+
         window.sessionStorage.setItem("token", res.data.token);
+        window.sessionStorage.setItem("studentId", res.data.username);
+        window.sessionStorage.setItem("psd", this.loginFrom.password);
         this.$router.push("/home");
       });
     },

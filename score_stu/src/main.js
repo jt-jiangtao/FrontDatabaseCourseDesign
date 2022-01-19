@@ -20,3 +20,37 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+//组件传值用
+Vue.prototype.bus = new Vue()
+
+import { Message } from 'element-ui';
+
+Vue.prototype.$message = function (msg) {
+  Message(msg)
+}
+Vue.prototype.$message = function (msg) {
+  return Message({
+    message: msg,
+    duration: 2000
+  })
+
+}
+Vue.prototype.$message.success = function (msg) {
+  return Message.success({
+    message: msg,
+    duration: 1000
+  })
+}
+Vue.prototype.$message.warning = function (msg) {
+  return Message.warning({
+    message: msg,
+    duration: 1000
+  })
+}
+Vue.prototype.$message.error = function (msg) {
+  return Message.error({
+    message: msg,
+    duration: 1000
+  })
+}
+

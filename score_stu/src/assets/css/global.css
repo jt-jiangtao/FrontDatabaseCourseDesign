@@ -6,3 +6,16 @@ body,
     padding: 0;
     min-width: 1366px;
 }
+
+/* .el-card {
+    box-shadow: 0 1px 1px rgb(0, 0, 0, 0.15) !important
+} */
+.el-main {
+    background-color: rgb(244, 244, 244);
+    height: 650px;
+    padding: 15px !important;
+}
+
+.el-input--suffix .el-input__inner {
+    padding-right: 1px !important;
+}
