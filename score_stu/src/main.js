@@ -20,6 +20,7 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
 //组件传值用
 Vue.prototype.bus = new Vue()
 

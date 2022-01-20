@@ -28,6 +28,7 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
   // to 将要访问 from 从那个路径跳转而来 next()放行 next('/login)强制跳转
