@@ -6,6 +6,7 @@ import axios from 'axios'
 import qs from 'qs'
 import ElementUI from 'element-ui'
 
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 

@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import {
     Button, Form, FormItem, Input, Message, Card, Select, Cascader, Option, Table, TableColumn,
-    MessageBox, Menu, Container, Header, MenuItem, Tag, Dialog,
-    Submenu, Main, Avatar, Descriptions, DescriptionsItem
+    MessageBox, Menu, Container, Header, MenuItem, Tag, Dialog, Aside, Breadcrumb, BreadcrumbItem,
+    Submenu, Main, Avatar, Descriptions, DescriptionsItem, MenuItemGroup
 } from 'element-ui'
+Vue.use(Aside)
+Vue.use(MenuItemGroup)
+Vue.use(BreadcrumbItem)
+Vue.use(Breadcrumb)
 Vue.use(Tag)
 Vue.use(Form)
 Vue.use(FormItem)
