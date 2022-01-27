@@ -3,17 +3,18 @@ import VueRouter from 'vue-router'
 import Login from "../components/Login.vue"
 import Home from "../components/Home.vue"
 import Class from "../components/teacher/Class.vue"
+import Exam from "../components/teacher/Exam.vue"
 Vue.use(VueRouter)
 
 const routes = [
 
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
-
   {
     path: '/home', component: Home, redirect: "/class",
     children: [
       { path: '/class', component: Class },
+      { path: '/exam', component: Exam },
     ]
   },
 

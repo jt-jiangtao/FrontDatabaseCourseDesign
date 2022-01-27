@@ -27,12 +27,7 @@
         size="small"
         style="width: 100%; margin-top: 10px"
       >
-        <el-table-column
-          align="center"
-          prop="classNumber"
-          label="班级号"
-          width="80"
-        >
+        <el-table-column align="center" prop="id" label="课程号" width="80">
         </el-table-column>
         <el-table-column
           align="center"

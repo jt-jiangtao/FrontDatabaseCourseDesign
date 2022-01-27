@@ -13,6 +13,13 @@ Vue.use(ElementUI)
 
 axios.defaults.baseURL = 'https://api.jiangtao.website/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+//axios请求拦截器
+// axios.interceptors.request.use(config => {
+//   config.headers.Authorization = window.sessionStorage.getItem('token')
+//   //最后必须返回config
+//   return config
+// })
 Vue.prototype.qs = qs;
 Vue.prototype.$http = axios
 

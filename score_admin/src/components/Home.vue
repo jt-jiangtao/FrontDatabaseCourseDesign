@@ -7,7 +7,7 @@
           :collapse="iscollapse"
           unique-opened
           background-color="#304156"
-          default-active="class"
+          default-active=""
           text-color="#BFCBD9"
           class="el-menu-vertical-demo"
           router
@@ -19,11 +19,11 @@
             </template>
             <el-menu-item index="class">所带班级</el-menu-item>
           </el-submenu>
-          <el-menu-item index="eeee">
+          <el-menu-item index="2">
             <i class="el-icon-menu"></i>
             <span slot="title">平时成绩</span>
           </el-menu-item>
-          <el-menu-item index="3">
+          <el-menu-item index="exam">
             <i class="el-icon-document"></i>
             <span slot="title">考试成绩</span>
           </el-menu-item>
