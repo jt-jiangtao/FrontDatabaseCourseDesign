@@ -4,6 +4,7 @@ import Login from "../components/Login.vue"
 import Home from "../components/Home.vue"
 import Class from "../components/teacher/Class.vue"
 import Exam from "../components/teacher/Exam.vue"
+import ExamFinish from "../components/teacher/ExamFinish.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,6 +16,7 @@ const routes = [
     children: [
       { path: '/class', component: Class },
       { path: '/exam', component: Exam },
+      { path: '/examFinish', component: ExamFinish },
     ]
   },
 
