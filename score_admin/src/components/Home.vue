@@ -30,7 +30,7 @@
             </el-menu-item>
           </el-submenu>
 
-          <el-menu-item index="4">
+          <el-menu-item index="total">
             <i class="el-icon-setting"></i>
             <span slot="title">成绩汇总</span>
           </el-menu-item>
@@ -40,7 +40,7 @@
         <el-header>
           <img src="../assets/img/asideBtn.png" @click="isfold" />
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/admin/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <!-- <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item> -->
           </el-breadcrumb>
         </el-header>
@@ -91,9 +91,9 @@ export default {
   height: 35px;
 }
 .el-aside {
+  height: 100vh;
   background-color: rgb(48, 65, 86);
-  height: 704px;
-  overflow: auto;
+  /* overflow: auto; */
   box-sizing: border-box;
   flex-shrink: 0;
   /* 延迟变化 */
@@ -108,7 +108,6 @@ export default {
 }
 .el-breadcrumb {
   margin-left: 10px;
-  /* margin-top: 20px; */
 }
 .el-menu {
   border-right: 0px;

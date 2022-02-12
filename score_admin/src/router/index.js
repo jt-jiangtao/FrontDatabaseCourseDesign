@@ -5,6 +5,7 @@ import Home from "../components/Home.vue"
 import Class from "../components/teacher/Class.vue"
 import Exam from "../components/teacher/Exam.vue"
 import ExamFinish from "../components/teacher/ExamFinish.vue"
+import Total from "../components/teacher/Total.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -17,6 +18,7 @@ const routes = [
       { path: '/class', component: Class },
       { path: '/exam', component: Exam },
       { path: '/examFinish', component: ExamFinish },
+      { path: '/total', component: Total },
     ]
   },
 

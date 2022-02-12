@@ -123,6 +123,9 @@ export default {
     },
     //上传Execl
     async UploadExecl() {
+      if (this.CourseValue === '') {
+        return this.$message.warning('请先选择课程')
+      }
       this.ExeclDialog = true
       this.downloadExecl()
     },

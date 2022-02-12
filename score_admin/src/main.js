@@ -5,11 +5,17 @@ import router from './router'
 import axios from 'axios'
 import qs from 'qs'
 import ElementUI from 'element-ui'
+import "./assets/css/index.css"
+import * as echarts from 'echarts';
+
+Vue.prototype.$echarts = echarts
+
+
+
 
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-
 
 axios.defaults.baseURL = 'https://api.jiangtao.website/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
