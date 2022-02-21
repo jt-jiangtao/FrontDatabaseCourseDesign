@@ -6,6 +6,12 @@ import Class from "../components/teacher/Class.vue"
 import Exam from "../components/teacher/Exam.vue"
 import ExamFinish from "../components/teacher/ExamFinish.vue"
 import Total from "../components/teacher/Total.vue"
+import Welcome from "../components/Welcome.vue"
+import Course from "../components/schoolManager/Course.vue"
+import Teacher from "../components/schoolManager/Teacher.vue"
+import AdminClass from "../components/schoolManager/AdminClass.vue"
+import Ordinary from "../components/teacher/Ordinary.vue"
+import OrdinaryFinish from "../components/teacher/OrdinaryFinish.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -13,9 +19,15 @@ const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
   {
-    path: '/home', component: Home, redirect: "/class",
+    path: '/home', component: Home, redirect: "/welcome",
     children: [
       { path: '/class', component: Class },
+      { path: '/ordinary', component: Ordinary },
+      { path: '/ordinaryFinish', component: OrdinaryFinish },
+      { path: '/adminClass', component: AdminClass },
+      { path: '/teacher', component: Teacher },
+      { path: '/course', component: Course },
+      { path: '/welcome', component: Welcome },
       { path: '/exam', component: Exam },
       { path: '/examFinish', component: ExamFinish },
       { path: '/total', component: Total },

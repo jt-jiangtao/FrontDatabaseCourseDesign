@@ -2114,29 +2114,14 @@
       <div class="avatar_box">
         <img src="../assets/logo.png" />
       </div>
-      <el-form
-        ref="loginFromRef"
-        :model="loginFrom"
-        :rules="loginFromRules"
-        relabel-width="0px"
-        class="login_from"
-      >
+      <el-form ref="loginFromRef" :model="loginFrom" :rules="loginFromRules" relabel-width="0px" class="login_from">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input
-            prefix-icon="el-icon-user"
-            size="medium"
-            v-model="loginFrom.username"
-          ></el-input>
+          <el-input prefix-icon="el-icon-user" size="medium" v-model="loginFrom.username"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input
-            type="password"
-            prefix-icon="el-icon-lock"
-            v-model="loginFrom.password"
-            @keyup.enter.native="login"
-          ></el-input>
+          <el-input type="password" prefix-icon="el-icon-lock" v-model="loginFrom.password" @keyup.enter.native="login"></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -2155,7 +2140,7 @@
 
 <style lang="less" scoped>
 .login_box {
-  border: black solid 1px;
+  border: rgb(233, 227, 227) solid 1px;
   width: 450px;
   height: 500px;
   border-radius: 3px;
@@ -2204,7 +2189,7 @@
   display: flex;
   justify-content: space-between;
 }
-@import "../assets/css/login.css";
+@import '../assets/css/login.css';
 </style>
 <script>
 export default {
@@ -2214,41 +2199,36 @@ export default {
       userInfo: {},
       //登陆表单的数据绑定对象
       loginFrom: {
-        username: "201921098380",
-        password: "201921098380",
+        username: '201921098380',
+        password: '201921098380',
       },
       loginFromRules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-        ],
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 6, message: "密码不得少于6位", trigger: "blur" },
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, message: '密码不得少于6位', trigger: 'blur' },
         ],
       },
-    };
+    }
   },
   methods: {
     //重置按钮
     resetLoginFrom() {
-      this.$refs.loginFromRef.resetFields();
+      this.$refs.loginFromRef.resetFields()
     },
     login() {
       this.$refs.loginFromRef.validate(async (valid) => {
-        if (!valid) return;
-        const { data: res } = await this.$http.post(
-          "api/login",
-          this.qs.stringify(this.loginFrom)
-        );
-        if (res.code != 1020) return this.$message.error("登陆失败");
-        this.$message.success("登陆成功");
+        if (!valid) return
+        const { data: res } = await this.$http.post('api/login', this.qs.stringify(this.loginFrom))
+        if (res.code != 1020) return this.$message.error('登陆失败')
+        this.$message.success('登陆成功')
 
-        window.sessionStorage.setItem("token", res.data.token);
-        window.sessionStorage.setItem("studentId", res.data.username);
-        window.sessionStorage.setItem("psd", this.loginFrom.password);
-        this.$router.push("/home");
-      });
+        window.sessionStorage.setItem('token', res.data.token)
+        window.sessionStorage.setItem('studentId', res.data.username)
+        window.sessionStorage.setItem('psd', this.loginFrom.password)
+        this.$router.push('/home')
+      })
     },
   },
-};
+}
 </script>
