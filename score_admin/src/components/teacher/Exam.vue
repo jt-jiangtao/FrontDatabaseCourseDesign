@@ -6,7 +6,7 @@
       </el-select>
       <el-button type="primary" size="small" class="btn" @click="getClass" style="margin-left: 20px">查询</el-button>
       <el-button type="success" size="small" class="btn" @click="UploadExecl" style="margin-left: 620px">上传execl文件</el-button>
-      <el-button type="warning" size="small" class="btn" style="margin-left: 80px">上传sql文件</el-button>
+      <el-button type="warning" size="small" class="btn" @click="downloadExecl" style="margin-left: 80px">下载execl模板</el-button>
       <!--未录入表格内容 -->
       <el-table :data="undo" style="width: 100%; margin-top: 10px" border stripe size="small">
         <el-table-column align="center" prop="proportion" label="考试占比" width="80"> </el-table-column>
@@ -127,7 +127,6 @@ export default {
         return this.$message.warning('请先选择课程')
       }
       this.ExeclDialog = true
-      this.downloadExecl()
     },
     //获取上传文件
     onUploadChange(file, fileList) {

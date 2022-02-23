@@ -2,9 +2,10 @@ import Vue from 'vue'
 import {
     Button, Form, FormItem, Input, Message, Card, Select, Cascader, Option, Table, TableColumn,
     MessageBox, Menu, Container, Header, MenuItem, Tag, Dialog, Aside, Breadcrumb, BreadcrumbItem,
-    Submenu, Main, Avatar, Descriptions, DescriptionsItem, MenuItemGroup, Upload, Slider
+    Submenu, Main, Avatar, Descriptions, DescriptionsItem, MenuItemGroup, Upload, Slider, Drawer
 } from 'element-ui'
 Vue.use(Aside)
+Vue.use(Drawer)
 Vue.use(Slider)
 Vue.use(Upload)
 Vue.use(MenuItemGroup)

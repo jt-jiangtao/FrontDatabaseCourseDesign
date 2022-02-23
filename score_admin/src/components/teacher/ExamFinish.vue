@@ -17,7 +17,7 @@
         <el-table-column align="center" prop="studentId" label="学号"> </el-table-column>
         <el-table-column align="center" prop="grade" label="等级" width="80"> </el-table-column>
         <el-table-column align="center" prop="score" label="考试分数" width="80"> </el-table-column>
-        <el-table-column align="center" prop="calculatedScore" label="计算之后的平时分" width="80"> </el-table-column>
+        <el-table-column align="center" prop="calculatedScore" label="计算之后的分数" width="80"> </el-table-column>
         <el-table-column label="操作" width="175">
           <template slot-scope="scope">
             <!-- 修改按钮 -->

@@ -43,7 +43,7 @@
 export default {
   data() {
     return {
-      activeIndex: '',
+      activeIndex: 'personal',
       loginFrom: {
         username: '',
         password: '',

@@ -8,7 +8,7 @@
           :collapse="iscollapse"
           unique-opened
           background-color="#304156"
-          default-active=""
+          default-active="class"
           text-color="#BFCBD9"
           class="el-menu-vertical-demo"
           router
@@ -64,7 +64,7 @@
           :collapse="iscollapse"
           unique-opened
           background-color="#304156"
-          default-active=""
+          default-active="course"
           text-color="#BFCBD9"
           class="el-menu-vertical-demo"
           router
@@ -121,9 +121,11 @@ export default {
     const userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
     if (userInfo.data.roleList[0].roleName === 'TEACHER') {
       this.teacher = true
+      this.$router.push('/class')
     }
     if (userInfo.data.roleList[0].roleName === 'SCHOOL_MANAGER') {
       this.manager = true
+      this.$router.push('/course')
     }
     this.userInfo = userInfo
     console.log(this.userInfo)

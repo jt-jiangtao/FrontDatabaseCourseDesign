@@ -71,7 +71,7 @@
           <el-input v-model="codeForm.password"></el-input>
         </el-form-item>
         <el-form-item label="新密码" prop="newPassword">
-          <el-input v-model="codeForm.newPassword"></el-input>
+          <el-input type="password" v-model="codeForm.newPassword"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

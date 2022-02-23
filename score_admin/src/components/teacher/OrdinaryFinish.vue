@@ -5,56 +5,66 @@
         <el-option v-for="item in className" :key="item.id" :value="item.id" :label="item.name"> </el-option>
       </el-select>
       <el-button type="primary" size="small" class="btn" @click="getClass" style="margin-left: 20px">查询</el-button>
+
       <!--未录入表格内容 -->
-      <el-table :data="finish" style="width: 100%; margin-top: 10px" border stripe size="mini">
-        <el-table-column align="center" prop="proportion" label="考试占比" width="80"> </el-table-column>
-        <el-table-column align="center" prop="specialtyName" label="专业名称" width="80"> </el-table-column>
-        <el-table-column align="center" prop="courseName" label="课程名称" width="80"> </el-table-column>
-        <el-table-column align="center" prop="property" label="课程性质"> </el-table-column>
-        <el-table-column align="center" prop="courseScore" label="课程学分数" width="80"> </el-table-column>
-        <el-table-column align="center" prop="className" label="班级名称" width="80"> </el-table-column>
-        <el-table-column align="center" prop="studentName" label="学生姓名	" width="80"> </el-table-column>
+      <el-table :data="finish" style="width: 100%; margin-top: 10px" border stripe size="small">
+        <el-table-column align="center" prop="studentName" label="学生姓名" width="80"> </el-table-column>
         <el-table-column align="center" prop="studentId" label="学号"> </el-table-column>
-        <el-table-column align="center" prop="grade" label="等级" width="80"> </el-table-column>
-        <el-table-column align="center" prop="score" label="考试分数" width="80"> </el-table-column>
-        <el-table-column align="center" prop="calculatedScore" label="计算之后的平时分" width="80"> </el-table-column>
-        <el-table-column label="操作" width="175">
+        <el-table-column align="center" prop="courseName" label="课程名称" width="80"> </el-table-column>
+        <el-table-column align="center" prop="year" label="学年"> </el-table-column>
+        <el-table-column align="center" prop="term" label="学期" width="100"> </el-table-column>
+        <el-table-column align="center" prop="typeName" label="考核名称" width="80"> </el-table-column>
+        <el-table-column align="center" prop="proportionInOrdinary" label="在平时成绩中占比" width="80"> </el-table-column>
+        <el-table-column align="center" prop="proportionInCourse" label="在课程占比" width="80"> </el-table-column>
+        <el-table-column align="center" prop="score" label="分数" width="80"> </el-table-column>
+        <el-table-column label="操作" width="175" align="center">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
-            <el-button size="mini" type="primary" icon="el-icon-edit" @click="updateScore(scope.row)"></el-button>
-            <!-- 删除按钮 -->
-            <el-button size="mini" type="danger" icon="el-icon-delete" @click="deleteScore(scope.row)"></el-button>
+            <el-button size="mini" type="primary" icon="el-icon-edit" @click="addScore(scope.row)"></el-button>
+            <el-button size="mini" type="danger" icon="el-icon-delete" @click="removeScore(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
+    <!-- Execl对话框 -->
+    <el-dialog title="上传Execl文件" :visible.sync="ExeclDialog" width="30%">
+      <el-upload :on-change="onUploadChange" ref="upload" on :file-list="fileList" :auto-upload="false" class="upload-demo" drag action="">
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">上传Excel格式文件</div>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="ExeclDialog = false">取 消</el-button>
+        <el-button type="primary" @click="submitUpload">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 添加分数对话框 -->
     <!-- 修改成绩对话框 -->
-    <el-dialog title="修改成绩" :visible.sync="updateScoreDialog" width="30%" @close="updateScoreDialogeClose()">
-      <el-form :model="scoreEditForm" :rules="scoreEditRules" ref="scoreEditRef" label-width="100px"
-        class="demo-ruleForm">
+    <el-dialog title="增加成绩" :visible.sync="addScoreDialog" width="30%" @close="addScoreDialogeClose()">
+      <el-form :model="addScoreForm" :rules="addScoreRules" ref="addScoreRef" label-width="100px" class="demo-ruleForm">
         <el-form-item label="课程名称">
-          <el-input v-model="scoreEditForm.courseName" disabled></el-input>
+          <el-input v-model="addScoreForm.courseName" disabled></el-input>
         </el-form-item>
         <el-form-item label="学生姓名">
-          <el-input v-model="scoreEditForm.studentName" disabled></el-input>
+          <el-input v-model="addScoreForm.studentName" disabled></el-input>
         </el-form-item>
         <el-form-item label="学生学号">
-          <el-input v-model="scoreEditForm.studentId" disabled></el-input>
+          <el-input v-model="addScoreForm.studentId" disabled></el-input>
         </el-form-item>
-        <el-form-item label="新的成绩" prop="newScore">
-          <el-input v-model="scoreEditForm.newScore" type="number"></el-input>
+        <el-form-item label="学生成绩" prop="score">
+          <el-input v-model="addScoreForm.score" type="number"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="updateScoreDialog = false">取 消</el-button>
-        <el-button type="primary" @click="confirmEditScore">确 定</el-button>
+        <el-button @click="addScoreDialog = false">取 消</el-button>
+        <el-button type="primary" @click="confirmAddScore">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       //上传的文件数组
       fileList: [],
@@ -62,7 +72,7 @@ export default {
       file: undefined,
       userInfo: {},
       ExeclDialog: false,
-      CourseValue: '',
+      CourseValue: 1,
       yearTerms: [],
       classQuery: {
         token: '',
@@ -75,50 +85,52 @@ export default {
       //成绩信息
       undo: [],
       finish: [],
-      //控制修改成绩对话框
-      updateScoreDialog: false,
-      //修改成绩表单
-      scoreEditForm: {
-        studentExaminationScoreId: '',
+      //添加成绩表单
+      addScoreForm: {
         courseName: '',
-        newScore: '',
         studentName: '',
         studentId: '',
+        score: '',
       },
-      //修改成绩表单验证规则
-      scoreEditRules: {
-        newScore: [{ required: true, message: '请输入新的成绩', trigger: 'blur' }],
+      //控制添加成绩对话框关闭
+      addScoreDialog: false,
+      //增家成绩表单验证规则
+      addScoreRules: {
+        score: [{ required: true, message: '请输入学生成绩', trigger: 'blur' }],
       },
     }
   },
   methods: {
-    //考试成绩查看
-    async getGrade () {
+    //平时成绩查看
+    async getGrade() {
       const { data: res } = await this.$http.post(
-        'api/teacher/examScore/get',
+        'api/teacher/normalScore/get',
         this.qs.stringify({
           courseId: this.CourseValue,
           teacherId: this.userInfo.data.info.teacherId,
           token: this.token,
         })
       )
+      console.log(res)
       this.undo = res.data.undo
+
       this.finish = res.data.finish
-      console.log(this.undo)
     },
     //上传Execl
-    async UploadExecl () {
+    async UploadExecl() {
+      if (this.CourseValue === '') {
+        return this.$message.warning('请先选择课程')
+      }
       this.ExeclDialog = true
-      this.downloadExecl()
     },
     //获取上传文件
-    onUploadChange (file, fileList) {
+    onUploadChange(file, fileList) {
       // 获取上传的文件
       this.fileList = fileList
       console.log(this.fileList)
     },
     //确定上传
-    async submitUpload () {
+    async submitUpload() {
       // https://api.jiangtao.website/api/teacher/examScore/upload/excel
       // this.qs.stringify({
       //     courseId: this.CourseValue,
@@ -144,12 +156,13 @@ export default {
       }
       this.$message.success('上传成功')
       this.ExeclDialog = false
+      this.getGrade()
       // this.$message.success('上传成功')
     },
     //下载Execl模板
-    async downloadExecl () {
+    async downloadExecl() {
       const response = await this.$http.post(
-        'api/teacher/examScore/download/excel',
+        'api/teacher/normalScore/download/excel',
         this.qs.stringify({
           courseId: this.CourseValue,
           teacherId: this.userInfo.data.info.teacherId,
@@ -164,7 +177,7 @@ export default {
       this.exportFile(response)
     },
     // 处理下载文件
-    exportFile (result) {
+    exportFile(result) {
       //   var contentDisposition = result.headers["content-disposition"];
       //   // 这里后端给的内容中，文件名字可能是驼峰式名称的 fileName ，或者是全部小写的 filename
       //   var filename = contentDisposition.split("=")[1];
@@ -182,7 +195,7 @@ export default {
       if (window.navigator.msSaveBlob) {
         //IE
         try {
-          window.navigator.msSaveBlob(blob, '期末成绩表.xls')
+          window.navigator.msSaveBlob(blob, '平时成绩表.xls')
         } catch (e) {
           console.log(e)
         }
@@ -191,7 +204,7 @@ export default {
         var link = document.createElement('a')
         link.style.display = 'none'
         link.href = url
-        link.setAttribute('download', '期末成绩表.xls')
+        link.setAttribute('download', '平时成绩表.xls')
         document.body.appendChild(link)
         link.click()
       }
@@ -200,13 +213,13 @@ export default {
       document.body.removeChild(link)
     },
     //获取学年
-    async getYearTerm () {
+    async getYearTerm() {
       const { data: res } = await this.$http.post('api/yearTerm')
       if (res.code !== 1020) return this.$message.error('获取学期失败')
       this.yearTerms = res.data.yearTerms
     },
     // 获取所带班级
-    async getClass () {
+    async getClass() {
       const { data: res } = await this.$http.post('api/teacher/course', this.qs.stringify(this.classQuery))
       this.className = res.data.courses
       this.getGrade()
@@ -218,44 +231,50 @@ export default {
     //   this.classQuery.year = res[0];
     //   this.classQuery.term = res[1];
     // },
-    //点击修改成绩按钮
-    updateScore (row) {
-      this.scoreEditForm.courseName = row.courseName
-      this.scoreEditForm.studentName = row.studentName
-      this.scoreEditForm.studentId = row.studentId
-      this.scoreEditForm.studentExaminationScoreId = row.studentExaminationId
+
+    //点击打开添加成绩对话框
+    addScore(row) {
       console.log(row)
-      this.updateScoreDialog = true
+
+      this.addScoreForm.courseName = row.courseName
+      this.addScoreForm.studentName = row.studentName
+      this.addScoreForm.studentId = row.studentId
+
+      this.addScoreDialog = true
     },
-    //关闭修改对话框清空表单
-    updateScoreDialogeClose () {
-      this.$refs.scoreEditRef.resetFields()
+    //关闭添加对话框清空表单
+    addScoreDialogeClose() {
+      this.$refs.addScoreRef.resetFields()
     },
-    //确定修改成绩
-    confirmEditScore () {
-      this.$refs.scoreEditRef.validate(async (valid) => {
+    //点击确认添加成绩
+    confirmAddScore() {
+      this.$refs.addScoreRef.validate(async (valid) => {
         if (!valid) return
         const { data: res } = await this.$http.post(
-          'api/teacher/examScore/update',
+          'api/teacher/examScore/add',
           this.qs.stringify({
-            studentExaminationScoreId: this.scoreEditForm.studentExaminationScoreId,
+            items: '[{' + 'score' + ':' + this.addScoreForm.score + ',' + 'studentId' + ': ' + this.addScoreForm.studentId + '}]',
             courseId: this.CourseValue,
             teacherId: this.userInfo.data.info.teacherId,
-            newScore: this.scoreEditForm.newScore,
             token: this.token,
-          })
+          }),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
+          }
         )
         console.log(res)
         if (res.code !== 1020) {
           return this.$message.error(res.message)
         }
         this.$message.success(res.message)
-        this.updateScoreDialog = false
+        this.addScoreDialog = false
         //跟新考试成绩表格
         this.getGrade()
       })
     },
-    async deleteScore (row) {
+    async removeScore(row) {
       console.log(row)
       //弹框提示窗
       const confirmResult = await this.$confirm('此操作将永久删除学生已录入成绩, 是否继续?', '提示', {
@@ -267,9 +286,9 @@ export default {
       //用户确认删除则，confirmResult为字符串 cancel
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除')
       const { data: res } = await this.$http.post(
-        'api/teacher/examScore/delete',
+        'api/teacher/normalScore/delete',
         this.qs.stringify({
-          studentExaminationScoreId: '[' + row.studentExaminationId + ']',
+          studentOrdinaryScoreId: '[' + row.studentOrdinaryScoreItemId + ']',
           courseId: this.CourseValue,
           teacherId: this.userInfo.data.info.teacherId,
           token: this.token,
@@ -289,15 +308,16 @@ export default {
       this.getGrade()
     },
   },
-  created () {
+  created() {
     this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
     this.classQuery.token = this.token
     this.classQuery.teacherId = this.userInfo.data.info.teacherId
     this.getYearTerm()
     this.getClass()
   },
+
   computed: {
-    token () {
+    token() {
       return window.sessionStorage.getItem('token')
     },
   },

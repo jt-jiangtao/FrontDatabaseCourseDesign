@@ -13,7 +13,7 @@ const routes = [
   { path: '/login', component: Login },
   {
     path: '/home', component: Home,
-    redirect: '/welcome',
+    redirect: '/personal',
     children: [
       { path: '/score', component: Score },
       { path: '/welcome', component: Welcome },
